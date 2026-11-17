@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" version="1.0" type="sdf" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-sdf.xsd">
+  <!-- Example 1's structure with e(x) scaled from 3 to 30 so the Bounded
+       Benders master's predefined cuts stay feasible (see test_ground_truth.py:
+       on the unscaled Example 1 the paper's M = max_e*|T|*B is too small
+       relative to B*mu_hat and the BB master is integer infeasible).
+       x=a0 (proc_0, e=30), y=a1 (proc_1, e=3), z=a2 (proc_0, e=2).
+       mu* = 32 (see test_ground_truth.py for the proof). -->
+  <applicationGraph>
+    <sdf name="g" type="G">
+      <actor name="a0" type="A0">
+        <port name="p0" type="in" rate="1"/>
+        <port name="p1" type="out" rate="1"/>
+      </actor>
+      <actor name="a1" type="A1">
+        <port name="p0" type="in" rate="1"/>
+        <port name="p1" type="out" rate="1"/>
+        <port name="p2" type="out" rate="1"/>
+      </actor>
+      <actor name="a2" type="A2">
+        <port name="p0" type="in" rate="1"/>
+      </actor>
+      <channel name="ch0" srcActor="a0" srcPort="p1" dstActor="a1" dstPort="p0"/>
+      <channel name="ch1" srcActor="a1" srcPort="p1" dstActor="a0" dstPort="p0" initialTokens="3"/>
+      <channel name="ch2" srcActor="a1" srcPort="p2" dstActor="a2" dstPort="p0"/>
+    </sdf>
+    <sdfProperties>
+      <actorProperties actor="a0">
+        <processor type="proc_0" default="true">
+          <executionTime time="30"/>
+        </processor>
+      </actorProperties>
+      <actorProperties actor="a1">
+        <processor type="proc_1" default="true">
+          <executionTime time="3"/>
+        </processor>
+      </actorProperties>
+      <actorProperties actor="a2">
+        <processor type="proc_0" default="true">
+          <executionTime time="2"/>
+        </processor>
+      </actorProperties>
+    </sdfProperties>
+  </applicationGraph>
+</sdf3>

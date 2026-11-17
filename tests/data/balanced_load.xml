@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" version="1.0" type="sdf" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-sdf.xsd">
+  <!-- Four independent tasks, each runnable on proc_0 or proc_1 with the same
+       execution time (3, 3, 4, 4). mu* = best balanced load = 7
+       (see test_ground_truth.py for the proof). -->
+  <applicationGraph>
+    <sdf name="g" type="G">
+      <actor name="a0" type="A0"/>
+      <actor name="a1" type="A1"/>
+      <actor name="a2" type="A2"/>
+      <actor name="a3" type="A3"/>
+    </sdf>
+    <sdfProperties>
+      <actorProperties actor="a0">
+        <processor type="proc_0" default="true">
+          <executionTime time="3"/>
+        </processor>
+        <processor type="proc_1">
+          <executionTime time="3"/>
+        </processor>
+      </actorProperties>
+      <actorProperties actor="a1">
+        <processor type="proc_0" default="true">
+          <executionTime time="3"/>
+        </processor>
+        <processor type="proc_1">
+          <executionTime time="3"/>
+        </processor>
+      </actorProperties>
+      <actorProperties actor="a2">
+        <processor type="proc_0" default="true">
+          <executionTime time="4"/>
+        </processor>
+        <processor type="proc_1">
+          <executionTime time="4"/>
+        </processor>
+      </actorProperties>
+      <actorProperties actor="a3">
+        <processor type="proc_0" default="true">
+          <executionTime time="4"/>
+        </processor>
+        <processor type="proc_1">
+          <executionTime time="4"/>
+        </processor>
+      </actorProperties>
+    </sdfProperties>
+  </applicationGraph>
+</sdf3>

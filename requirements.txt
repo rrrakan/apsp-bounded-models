@@ -1,0 +1,12 @@
+# Python 3.10.11. See README.md "Setup" before installing anything.
+#
+# WARNING — cplex: do NOT blindly `pip install` or upgrade/reinstall `cplex`.
+# The pip wheel alone is the size-limited Community Edition. After installing
+# it once, unlock the full edition against a licensed CPLEX Studio 22.2 with:
+#   docplex config --upgrade "C:\Program Files\IBM\ILOG\CPLEX_Studio222"
+# Reinstalling `cplex` later silently reverts to the Community Edition.
+cplex==22.2.0.1
+docplex==2.32.264
+pandas==2.3.3
+interruptingcow==0.8
+pytest==9.2.0

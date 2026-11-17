@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" version="1.0" type="sdf" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-sdf.xsd">
+  <!-- Three tasks, each alone on its own resource (loads 4, 4, 6), in a
+       dependency cycle a0 -> a1 -> a2 -> a0 holding 2 tokens in total.
+       The cycle, not resource load, determines the optimum:
+       mu* = (4+4+6)/2 = 7 > max load 6 (see test_ground_truth.py). -->
+  <applicationGraph>
+    <sdf name="g" type="G">
+      <actor name="a0" type="A0">
+        <port name="p0" type="in" rate="1"/>
+        <port name="p1" type="out" rate="1"/>
+      </actor>
+      <actor name="a1" type="A1">
+        <port name="p0" type="in" rate="1"/>
+        <port name="p1" type="out" rate="1"/>
+      </actor>
+      <actor name="a2" type="A2">
+        <port name="p0" type="in" rate="1"/>
+        <port name="p1" type="out" rate="1"/>
+      </actor>
+      <channel name="ch0" srcActor="a0" srcPort="p1" dstActor="a1" dstPort="p0"/>
+      <channel name="ch1" srcActor="a1" srcPort="p1" dstActor="a2" dstPort="p0"/>
+      <channel name="ch2" srcActor="a2" srcPort="p1" dstActor="a0" dstPort="p0" initialTokens="2"/>
+    </sdf>
+    <sdfProperties>
+      <actorProperties actor="a0">
+        <processor type="proc_0" default="true">
+          <executionTime time="4"/>
+        </processor>
+      </actorProperties>
+      <actorProperties actor="a1">
+        <processor type="proc_1" default="true">
+          <executionTime time="4"/>
+        </processor>
+      </actorProperties>
+      <actorProperties actor="a2">
+        <processor type="proc_2" default="true">
+          <executionTime time="6"/>
+        </processor>
+      </actorProperties>
+    </sdfProperties>
+  </applicationGraph>
+</sdf3>

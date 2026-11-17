@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<sdf3 xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" version="1.0" type="sdf" xsi:noNamespaceSchemaLocation="https://www.es.ele.tue.nl/sdf3/xsd/sdf3-sdf.xsd">
+  <applicationGraph>
+    <sdf name="g" type="G">
+      <!-- a0 has execution time 5 on proc_0 and 0 on proc_1: the authors' code then
+           skips constraint (17)/(30) for a0 entirely. If a0 is allocated to proc_0,
+           the paper requires mu >= 5; without (17)/(30) the model allows mu = 3
+           (bounded only by a1's own constraint). -->
+      <actor name="a0" type="A0"/>
+      <actor name="a1" type="A1"/>
+    </sdf>
+    <sdfProperties>
+      <actorProperties actor="a0">
+        <processor type="proc_0" default="true">
+          <executionTime time="5"/>
+        </processor>
+        <processor type="proc_1">
+          <executionTime time="0"/>
+        </processor>
+      </actorProperties>
+      <actorProperties actor="a1">
+        <processor type="proc_1" default="true">
+          <executionTime time="3"/>
+        </processor>
+      </actorProperties>
+    </sdfProperties>
+  </applicationGraph>
+</sdf3>
