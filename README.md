@@ -18,23 +18,42 @@ Models:
 3. **BQM** — Bounded Quinton Monolithic (Sec. VIII-A, model 5)
 4. **BQB** — Bounded Quinton Benders (Sec. VIII-A, model 6)
 
-## Setup (this environment — already done; recorded for reproduction)
+## Setup
 
-- Windows, PowerShell. Python **3.10.11** in `C:\apsp_project\.venv`
-  (`.venv\Scripts\Activate.ps1`; every command runs inside it).
-- **cplex 22.2.0.0** (pip) + **docplex 2.32.264**, plus pandas, interruptingcow,
-  pytest. CPLEX Studio 22.2 is installed at
-  `C:\Program Files\IBM\ILOG\CPLEX_Studio222`.
-- From CPLEX 22.1.2 on, the Python API no longer ships with CPLEX Studio. The pip
-  `cplex` package was installed and then **unlocked to the full edition** with:
-  `docplex config --upgrade "C:\Program Files\IBM\ILOG\CPLEX_Studio222"`.
-- **Never `pip install` / `--upgrade` / reinstall `cplex`.** That replaces the
-  unlocked full edition with the size-limited Community Edition. If it happens,
-  rerun the `docplex config --upgrade` command above.
-- Version note: the paper used CPLEX 22.1.1 and docplex 2.29.241; this
-  environment uses CPLEX 22.2 and docplex 2.32.264. Results on the example
-  instance match the paper's µ; iteration counts and times differ with solver
-  version (and with hash seed, see below).
+Requirements: **Python 3.10** and a licensed **IBM CPLEX Studio 22.2**
+installation.
+
+1. Create and activate a virtual environment, then install the dependencies:
+
+   ```
+   python -m venv .venv
+   .venv\Scripts\Activate.ps1      # Windows; on Linux/macOS: source .venv/bin/activate
+   pip install -r requirements.txt
+   ```
+
+2. From CPLEX 22.1.2 on, the Python API no longer ships with CPLEX Studio. The
+   pip `cplex` package (**22.2.0.1**) installed above is the size-limited
+   Community Edition until you unlock it against your CPLEX Studio installation:
+
+   ```
+   docplex config --upgrade "<path to your CPLEX Studio 22.2>"
+   ```
+
+   (for example `"C:\Program Files\IBM\ILOG\CPLEX_Studio222"`).
+
+3. Check that the unlock worked: run the example below — its models have more
+   than 1,000 variables, so the Community Edition fails with CPLEX error 1016
+   ("promotional version"), while the full edition solves all four models and
+   prints µ = 6494.
+
+4. **Never `pip install` / `--upgrade` / reinstall `cplex` afterwards.** That
+   replaces the unlocked full edition with the Community Edition again. If it
+   happens, rerun the `docplex config --upgrade` command above.
+
+Version note: the paper used CPLEX 22.1.1 and docplex 2.29.241; this code was
+developed and tested on CPLEX 22.2 and docplex 2.32.264. Results on the example
+instance match the paper's µ; iteration counts and times differ with solver
+version (and with hash seed, see below).
 
 ## How to run
 
