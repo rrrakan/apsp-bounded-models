@@ -1,4 +1,4 @@
-# APSP bounded models on CPLEX
+# APSP bounded models 
 
 **Rakan Al Qawasmi (20210161), Sameer Amjad Abboud (20220778)**
 
